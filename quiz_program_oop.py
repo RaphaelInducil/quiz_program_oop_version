@@ -64,7 +64,7 @@ class QuizProgram:
                     answer_d = file_lines[line_number + 4].strip()
                     correct_answer = file_lines[line_number + 5].strip()
 
-                    quiz_data.append([
+                    self.quiz_data.append([
                         question,
                         answer_a,
                         answer_b,
@@ -74,7 +74,7 @@ class QuizProgram:
                     ])
                     line_number += 7
 
-            random.shuffle(quiz_data)
+            random.shuffle(self.quiz_data)
 
         except FileNotFoundError:
             print("File nto found.")
@@ -86,7 +86,7 @@ class QuizProgram:
             
         score = 0
 
-        for quiz_item in quiz_data:
+        for quiz_item in self.quiz_data:
             print("\n" + quiz_item[0])
             print(quiz_item[1])
             print(quiz_item[2])
@@ -115,4 +115,30 @@ class QuizProgram:
     # display menu
     # get user input
     # elif condition for choices
+
+def main():
+    while True:
+        print("\n==== QUIZ MENU ====")
+        print("1. Create a Quiz")
+        print("2. Take a Quiz")
+        print("3. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            maker = QuizMaker("Raphael")
+            maker.make()
+        elif choice == "2":
+            program = QuizProgram()
+            program.load_quiz()
+            program.take_quiz()
+        elif choice == "3":
+            print("Exiting the quiz program.")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
+
+if __name__ == "__main__":
+    main()
+
 # end

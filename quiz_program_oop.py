@@ -43,60 +43,64 @@ class QuizMaker:
 
 import random
 class QuizProgram:
-    quiz_file = input("Enter the name of your quiz file (without .txt): ") + ".txt"
+    def __init__(self):
+        self.quiz_data = []
 
-    with open(quiz_file, "r") as file:
-        file_lines = file.readlines()
+    def load_quiz(self):
+        quiz_file = input("Enter the name of your quiz file (without .txt): ") + ".txt"
 
-    quiz_data = []
-    line_number = 0
+        with open(quiz_file, "r") as file:
+            file_lines = file.readlines()
 
-    while line_number < len(file_lines):
-        if file_lines[line_number].startswith("Question: "):
-            question = file_lines[line_number].strip()
-            answer_a = file_lines[line_number + 1].strip()
-            answer_b = file_lines[line_number + 2].strip()
-            answer_c = file_lines[line_number + 3].strip()
-            answer_d = file_lines[line_number + 4].strip()
-            correct_answer = file_lines[line_number + 5].strip()
+        quiz_data = []
+        line_number = 0
 
-            quiz_data.append([
-                question,
-                answer_a,
-                answer_b,
-                answer_c,
-                answer_d,
-                correct_answer
-            ])
-            line_number += 7
+        while line_number < len(file_lines):
+            if file_lines[line_number].startswith("Question: "):
+                question = file_lines[line_number].strip()
+                answer_a = file_lines[line_number + 1].strip()
+                answer_b = file_lines[line_number + 2].strip()
+                answer_c = file_lines[line_number + 3].strip()
+                answer_d = file_lines[line_number + 4].strip()
+                correct_answer = file_lines[line_number + 5].strip()
 
-    random.shuffle(quiz_data)
+                quiz_data.append([
+                    question,
+                    answer_a,
+                    answer_b,
+                    answer_c,
+                    answer_d,
+                    correct_answer
+                ])
+                line_number += 7
 
-    score = 0
+        random.shuffle(quiz_data)
 
-    for quiz_item in quiz_data:
-        print("\n" + quiz_item[0])
-        print(quiz_item[1])
-        print(quiz_item[2])
-        print(quiz_item[3])
-        print(quiz_item[4])
+        score = 0
 
-        user_answer = input("Your answer (A, B, C, D): ").strip().upper()
+        for quiz_item in quiz_data:
+            print("\n" + quiz_item[0])
+            print(quiz_item[1])
+            print(quiz_item[2])
+            print(quiz_item[3])
+            print(quiz_item[4])
 
-        correct_answer = quiz_item[5].split(": ")[1].strip().upper()
+            user_answer = input("Your answer (A, B, C, D): ").strip().upper()
 
-        if user_answer == correct_answer:
-            print("Correct!")
-            score += 1
-        else:
-            print("Wrong! The correct answer is: " + correct_answer)
+            correct_answer = quiz_item[5].split(": ")[1].strip().upper()
 
-        continue_quiz = input("Do you want to continue? (yes/no): ").strip().lower()
-        if continue_quiz != "yes":
-            print("Thank you for playing!")
-            break
+            if user_answer == correct_answer:
+                print("Correct!")
+                score += 1
+            else:
+                print("Wrong! The correct answer is: " + correct_answer)
 
-    print(f"\nYou got {score} correct out of {len(quiz_data)}.")
+            continue_quiz = input("Do you want to continue? (yes/no): ").strip().lower()
+            if continue_quiz != "yes":
+                print("Thank you for playing!")
+                break
+
+        print(f"\nYou got {score} correct out of {len(quiz_data)}.")
 
 # import both projects
 # create menu to run the quiz maker and quiz program

@@ -42,6 +42,7 @@ class QuizMaker:
 # create class quiz_program.py oop vers.
 
 import random
+
 class QuizProgram:
     def __init__(self):
         self.quiz_data = []
